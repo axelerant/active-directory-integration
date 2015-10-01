@@ -27,6 +27,18 @@ OriginalAuthor URI: http://soc.qc.edu/jonathan
 	Lesser General Public License for more details.
 */
 
+/**
+ * Stop update notification as customizations have been done directly
+ * inside the plugin because of shortage of hooks.
+ * 
+ * @param 	array 	$value 	list of plugins
+ * @return 	array 			modified list of plugins
+ */
+function axl_remove_update_notification( $value ) {
+	unset( $value->response[ plugin_basename(__FILE__) ] );
+ 	return $value;
+}
+add_filter( 'site_transient_update_plugins', 'axl_remove_update_notification' );
 
 if (!class_exists('ADIntegrationPlugin')) {
 	
